@@ -182,29 +182,26 @@ pkg_setup() {
 
 src_prepare() {
 	# Install Node.js dependencies
-	cd ${S} || die
 	npm install || die
 
 	# MusicBrainz JavaScript/CSS build system
-	cd ${S}
 	./node_modules/.bin/gulp || die
 }
 
 src_compile() {
-	cd ${S}/postgresql-musicbrainz-unaccent
+	cd "${S}/postgresql-musicbrainz-unaccent"
 	make || die
-	cd ${S}/postgresql-musicbrainz-collate
+	cd "${S}/postgresql-musicbrainz-collate"
 	make || die
 }
 
 src_install() {
-	cd ${S}/postgresql-musicbrainz-unaccent
+	cd "${S}/postgresql-musicbrainz-unaccent"
 	make DESTDIR="${D}" install || die
-	cd ${S}/postgresql-musicbrainz-collate
+	cd "${S}/postgresql-musicbrainz-collate"
 	make DESTDIR="${D}" install || die
 
-	cd ${S}
-	insinto /usr/share/${PN}
-	doins -r * 
+	cd "${S}"
+	insinto "/usr/share/${PN}"
+	doins -r *
 }
-
