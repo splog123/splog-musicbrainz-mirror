@@ -1,29 +1,24 @@
 #!/sbin/runscript
 
-run_dir="/var/run/lazylibrarian"
-pidfile="$run_dir/lazylibrarian.pid"
-etc_dir="/etc/lazylibrarian"
-var_dir="/var/lazylibrarian"
-log_dir="/var/log/lazylibrarian"
-program="$CODE_DIR/LazyLibrarian.py"
-bin=`which $PYTHON_BIN`
+app="musicbrainz-server"
+run_dir="/run/${app}"
+pidfile="${run_dir}/${app}.pid"
+program="/usr/bin/plackup"
+log_dir="/var/log/${app}"
+lib_dir="/usr/share/${app}/lib"
 
 check_config() {
-
         if [ ! -d "${run_dir}" ]; then
                 mkdir "${run_dir}"
         fi
-
-        # Permission stuff. Should ensure that the daemon user always have write permissions.
-        # Quick and ugly but should get the job done.
-
-        chown -R ${USER}:${GROUP} "${run_dir}"
-        chown -R ${USER}.${GROUP} "${var_dir}"
-        chown -R ${USER}.${GROUP} "${etc_dir}"
-        chown -R ${USER}.${GROUP} "${log_dir}"
-        if [ "${WEBUPDATER}" = "YES" ]; then
-                chown -R ${USER}.${GROUP} "${CODE_DIR}"
+        if [ ! -d "${log_dir}" ]; then
+                mkdir "${log_dir}"
         fi
+
+        # Permission stuff. Ensure that the daemon always has write permissions.
+        # Quick and ugly but should get the job done.
+        chown -R ${USER}:${GROUP} "${run_dir}"
+        chown -R ${USER}:${GROUP} "${log_dir}"
 }
 
 depend() {
@@ -33,16 +28,18 @@ depend() {
 start() {
         check_config
 
-        ebegin "Starting musicbrainz-server"
+        ebegin "Starting ${app}"
         start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
-        --exec ${bin} ${program} -- \
-        -d --pidfile ${pidfile} --datadir ${var_dir} --nolaunch --config ${CONFIG_FILE} --port ${PORT}
+        --exec ${program} -- \
+        plackup -D -I${lib_dir} -s ${SERVER} -E ${PLACK_ENV} --port ${PORT} \
+        --host ${HOST} ${EXTRA_VARS} \
+        -- ${EXTRA_BACKEND_VARS} \
+        >${log_dir}/${app}.log 2>&1"
         eend $?
 }
 
 stop() {
-        ebegin "Stopping musicbrainz-server
-        "
+        ebegin "Stopping ${app}"
         start-stop-daemon --stop --pidfile ${pidfile}
         eend $?
 }
