@@ -239,7 +239,7 @@ src_prepare() {
 src_compile() {
 	cd "${S}/postgresql-musicbrainz-unaccent"
 	make || die
-	cd "${S}"/postgresql-musicbrainz-collate"
+	cd "${S}/postgresql-musicbrainz-collate"
 	make || die
 }
 
