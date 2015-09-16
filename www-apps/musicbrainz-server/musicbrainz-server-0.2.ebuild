@@ -14,7 +14,7 @@ KEYWORDS="~amd64"
 IUSE=""
 
 user="musicbrainz"
-group="musicbrainz"
+groups="musicbrainz"
 
 # This list of perl deps comes from the project Makefile.PL
 # https://github.com/metabrainz/musicbrainz-server/blob/master/Makefile.PL
@@ -224,9 +224,9 @@ DEPEND="${RDEPEND}"
 pkg_setup() {
 	# Move this later, somewhere near postinst
 	# Create musicbrainz group
-	enewgroup "${group}"
+	enewgroup "${groups}"
 	# Create musicbrainz user, put in musicbrainz group
-	enewuser mb -1 -1 -1 "${user}"
+	enewuser "${user}" -1 -1 -1 "${groups}"
 }
 
 src_prepare() {
@@ -257,7 +257,7 @@ src_install() {
 
 	# Location of log and data files
 	keepdir "/var/${PN}"
-	fowners -R "${user}:${group}" "/var/${PN}"
+	fowners -R "${user}:${groups}" "/var/${PN}"
 
 	# Rotation of log files
 	insinto "/etc/logrotate.d"
