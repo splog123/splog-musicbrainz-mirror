@@ -8,38 +8,38 @@ log_dir="/var/log/${app}"
 lib_dir="/usr/share/${app}/lib"
 
 check_config() {
-        if [ ! -d "${run_dir}" ]; then
-                mkdir "${run_dir}"
-        fi
-        if [ ! -d "${log_dir}" ]; then
-                mkdir "${log_dir}"
-        fi
+	if [ ! -d "${run_dir}" ]; then
+		mkdir "${run_dir}"
+	fi
+	if [ ! -d "${log_dir}" ]; then
+		mkdir "${log_dir}"
+	fi
 
-        # Permission stuff. Ensure that the daemon always has write permissions.
-        # Quick and ugly but should get the job done.
-        chown -R ${USER}:${GROUP} "${run_dir}"
-        chown -R ${USER}:${GROUP} "${log_dir}"
+	# Permission stuff. Ensure that the daemon always has write permissions.
+	# Quick and ugly but should get the job done.
+	chown -R ${USER}:${GROUP} "${run_dir}"
+	chown -R ${USER}:${GROUP} "${log_dir}"
 }
 
 depend() {
-        need net
+	need net
 }
 
 start() {
-        check_config
+	check_config
 
-        ebegin "Starting ${app}"
-        start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
-        --exec ${program} -- \
-        plackup -D -I${lib_dir} -s ${SERVER} -E ${PLACK_ENV} --port ${PORT} \
-        --host ${HOST} ${EXTRA_VARS} \
-        -- ${EXTRA_BACKEND_VARS} \
-        >${log_dir}/${app}.log 2>&1"
-        eend $?
+	ebegin "Starting ${app}"
+	start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
+	--exec ${program} -- \
+	plackup -D -I${lib_dir} -s ${SERVER} -E ${PLACK_ENV} --port ${PORT} \
+	--host ${HOST} ${EXTRA_VARS} \
+	-- ${EXTRA_BACKEND_VARS} \
+	>${log_dir}/${app}.log 2>&1"
+	eend $?
 }
 
 stop() {
-        ebegin "Stopping ${app}"
-        start-stop-daemon --stop --pidfile ${pidfile}
-        eend $?
+	ebegin "Stopping ${app}"
+	start-stop-daemon --stop --pidfile ${pidfile}
+	eend $?
 }

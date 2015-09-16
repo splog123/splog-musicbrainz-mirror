@@ -237,32 +237,32 @@ src_prepare() {
 }
 
 src_compile() {
-	cd "${S}"/postgresql-musicbrainz-unaccent
+	cd "${S}/postgresql-musicbrainz-unaccent"
 	make || die
-	cd "${S}"/postgresql-musicbrainz-collate
+	cd "${S}"/postgresql-musicbrainz-collate"
 	make || die
 }
 
 src_install() {
-	cd "${S}"/postgresql-musicbrainz-unaccent
+	cd "${S}/postgresql-musicbrainz-unaccent"
 	make DESTDIR="${D}" install || die
-	cd "${S}"/postgresql-musicbrainz-collate
+	cd "${S}/postgresql-musicbrainz-collate"
 	make DESTDIR="${D}" install || die
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 
 	# Location of log and data files
-	keepdir /var/${PN}
-	fowners -R ${PN}:${PN} /var/${PN}
+	keepdir "/var/${PN}"
+	fowners -R "${PN}:${PN}" "/var/${PN}"
 
 	# Rotation of log files
-	insinto /etc/logrotate.d
+	insinto "/etc/logrotate.d"
 	insopts -m0644 -o root -g root
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
 	cd "${S}"
-	insinto /usr/share/"${PN}"
+	insinto "/usr/share/${PN}"
 	doins -r *
 }
 
