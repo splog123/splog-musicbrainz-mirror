@@ -34,7 +34,7 @@ start() {
 	plackup -D -I${lib_dir} -s ${SERVER} -E ${PLACK_ENV} --port ${PORT} \
 	--host ${HOST} ${EXTRA_VARS} \
 	-- ${EXTRA_BACKEND_VARS} \
-	>${log_dir}/${app}.log 2>&1"
+	>${log_dir}/${app}.log 2>&1
 	eend $?
 }
 

@@ -255,10 +255,6 @@ src_install() {
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
 
-	# Location of log and data files
-	keepdir "/var/${PN}"
-	fowners -R "${user}:${groups}" "/var/${PN}"
-
 	# Rotation of log files
 	insinto "/etc/logrotate.d"
 	insopts -m0644 -o root -g root
