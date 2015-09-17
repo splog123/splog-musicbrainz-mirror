@@ -15,6 +15,7 @@ IUSE=""
 
 user="musicbrainz"
 groups="musicbrainz"
+mb_root="/usr/share"
 
 # This list of perl deps comes from the project Makefile.PL
 # https://github.com/metabrainz/musicbrainz-server/blob/master/Makefile.PL
@@ -229,16 +230,6 @@ pkg_setup() {
 	enewuser "${user}" -1 -1 -1 "${groups}"
 }
 
-src_prepare() {
-	# Install Node.js dependencies
-	# Circa 20150910 "npm install" with default shrinkwrap method started
-	# failing - all packages would install, but npm would not exit and hang
-	npm install --no-shrinkwrap || die
-
-	# MusicBrainz JavaScript/CSS build system
-	./node_modules/.bin/gulp || die
-}
-
 src_compile() {
 	cd "${S}/postgresql-musicbrainz-unaccent"
 	make || die
@@ -261,7 +252,7 @@ src_install() {
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
 	cd "${S}"
-	insinto "/usr/share/${PN}"
+	insinto "${mb_root}/${PN}"
 	doins -r *
 }
 
@@ -272,20 +263,30 @@ pkg_postinst() {
 	elog
 	elog "To complete the installation you must do the following:"
 	elog
-	elog "  1. Edit REPLICATION_TYPE in /usr/share/musicbrainz-server/lib/DBDefs.pm"
+	elog "  1. Edit REPLICATION_TYPE in ${mb_root}/${PN}/lib/DBDefs.pm"
 	elog "  2. Make any other desired changes in DBDefs.pm"
-	elog "  3. Set PostgreSQL access permissions"
-	elog "  4. Create a database and if required import data dumps"
+	elog "  3. Install Node.js dependencies:
+	elog "     cd ${mb_root}/${PN}
+	elog "     npm install
+	elog "     ./node_modules/.bin/gulp
+	elog "     You may need to repeat these commands until they succeed.
+	elog "  4. Set PostgreSQL access permissions"
+	elog "  5. Create a database and if required import data dumps"
 	elog
 	elog "  A full description of these steps can be found here:"
 	elog "  https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md"
 	elog
 	elog "To update a slave hourly from the musicbrainz master, add this cron:"
-	elog "0 * * * * /usr/share/musicbrainz-server/admin/cron/slave.sh"
+	elog "0 * * * * ${mb_root}/${PN}/admin/cron/slave.sh"
 	elog
 	elog "Please configure ${ROOT}etc/conf.d/${PN} before starting the server."
 	elog
 	elog "Start the server with ${ROOT}etc/init.d/${PN} start."
 	elog "Visit http://<host ip>:5000 to access the musicbrainz mirror site."
 	elog
+https://bugs.gentoo.org/show_bug.cgi?id=463782
+	 --no-shrinkwrap || die
+
+	# MusicBrainz JavaScript/CSS build system
+	 || die
 }
