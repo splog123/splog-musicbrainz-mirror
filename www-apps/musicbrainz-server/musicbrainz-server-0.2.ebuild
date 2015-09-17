@@ -265,11 +265,11 @@ pkg_postinst() {
 	elog
 	elog "  1. Edit REPLICATION_TYPE in ${mb_root}/${PN}/lib/DBDefs.pm"
 	elog "  2. Make any other desired changes in DBDefs.pm"
-	elog "  3. Install Node.js dependencies:
-	elog "     cd ${mb_root}/${PN}
-	elog "     npm install
-	elog "     ./node_modules/.bin/gulp
-	elog "     You may need to repeat these commands until they succeed.
+	elog "  3. Install Node.js dependencies:"
+	elog "     cd ${mb_root}/${PN}"
+	elog "     npm install"
+	elog "     ./node_modules/.bin/gulp"
+	elog "     You may need to repeat these commands until they succeed."
 	elog "  4. Set PostgreSQL access permissions"
 	elog "  5. Create a database and if required import data dumps"
 	elog
@@ -284,9 +284,4 @@ pkg_postinst() {
 	elog "Start the server with ${ROOT}etc/init.d/${PN} start."
 	elog "Visit http://<host ip>:5000 to access the musicbrainz mirror site."
 	elog
-https://bugs.gentoo.org/show_bug.cgi?id=463782
-	 --no-shrinkwrap || die
-
-	# MusicBrainz JavaScript/CSS build system
-	 || die
 }
