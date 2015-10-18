@@ -2,7 +2,7 @@
 
 app="musicbrainz-server"
 run_dir="/run/${app}"
-pidfile="${run_dir}/${app}.pid"
+pid_file="${run_dir}/${app}.pid"
 program="/usr/bin/plackup"
 log_dir="/var/log/${app}"
 app_dir="/usr/share/${app}"
@@ -34,18 +34,17 @@ start() {
 	check_config
 
 	ebegin "Starting ${app}"
-	start-stop-daemon --start --pidfile ${pidfile} --user ${USER}:${GROUP} \
+	start-stop-daemon --start -i -b -m \
+	--pidfile ${pid_file} --user ${USER} --group ${GROUP} \
 	--exec ${program} -- \
-	--daemonize --app ${psgi_file} --path=${app_dir} -I${lib_dir} --reload \
-	${EXTRA_VARS} -- \
-	${EXTRA_BACKEND_VARS} \
+	-r -I${lib_dir} --app ${psgi_file} \
+	${EXTRA_VARS} \
 	>${log_dir}/${app}.log 2>&1
-
 	eend $?
 }
 
 stop() {
 	ebegin "Stopping ${app}"
-	start-stop-daemon --stop --pidfile ${pidfile}
+	start-stop-daemon --stop --pidfile ${pid_file}
 	eend $?
 }
