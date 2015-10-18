@@ -243,6 +243,11 @@ src_install() {
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
 	cd "${S}"
+	find . -path ./blib -prune -o -path ./node_modules -prune -o -type f -print | \
+	while read fn; do 
+		head -n1 "${fn}" | grep -q "^#\!" && chmod a+x "${fn}" 
+	done
+
 	insinto "${mb_root}/${PN}"
 	doins -r *
 }
