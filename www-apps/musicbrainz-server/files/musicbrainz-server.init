@@ -19,6 +19,9 @@ check_config() {
 	# Quick and ugly but should get the job done.
 	chown -R ${USER}:${GROUP} "${run_dir}"
 	chown -R ${USER}:${GROUP} "${log_dir}"
+
+	#Remove tmp dir from previous invocation
+	rm -rf /tmp/ttc
 }
 
 depend() {
@@ -29,12 +32,14 @@ start() {
 	check_config
 
 	ebegin "Starting ${app}"
-	start-stop-daemon --start --pidfile ${pidfile} -u ${USER} -g ${GROUP}\
+	start-stop-daemon --start --pidfile ${pidfile} --user ${USER}:${GROUP}\
 	--exec ${program} -- \
-	plackup -D -I${lib_dir} -s ${SERVER} -E ${PLACK_ENV} --port ${PORT} \
-	--host ${HOST} ${EXTRA_VARS} \
-	-- ${EXTRA_BACKEND_VARS} \
+	--daemonize -I${lib_dir} --server ${SERVER} --env ${PLACK_ENV} \
+	--port ${PORT} --host ${HOST} \
+	${EXTRA_VARS} -- \
+	${EXTRA_BACKEND_VARS} \
 	>${log_dir}/${app}.log 2>&1
+
 	eend $?
 }
 
