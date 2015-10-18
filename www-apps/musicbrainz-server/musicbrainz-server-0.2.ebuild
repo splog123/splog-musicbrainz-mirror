@@ -108,6 +108,7 @@ MAKEFILE_MANDATORY="
 	dev-perl/MRO-Compat
 	perl-gcpan/Net-Amazon-AWSSign
 	perl-gcpan/Unicode-ICU-Collator
+	perl-gcpan/Object-InsideOut
 	perl-gcpan/REST-Utils
 	dev-perl/Readonly
 	dev-perl/Redis
