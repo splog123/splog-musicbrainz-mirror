@@ -15,7 +15,7 @@ IUSE=""
 
 user="musicbrainz"
 groups="musicbrainz"
-mb_root="/usr/share"
+mb_root="/usr/share/${PN}"
 
 # This list of perl deps comes from the project Makefile.PL
 # https://github.com/metabrainz/musicbrainz-server/blob/master/Makefile.PL
@@ -243,13 +243,13 @@ src_install() {
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
 	cd "${S}"
-	find . -path ./blib -prune -o -path ./node_modules -prune -o -type f -print | \
-	while read fn; do 
-		head -n1 "${fn}" | grep -q "^#\!" && chmod a+x "${fn}" 
-	done
-
-	insinto "${mb_root}/${PN}"
+	insinto "${mb_root}"
 	doins -r *
+
+	find "${D}/${mb_root}" -path ./blib -prune -o -path ./node_modules -prune -o -type f -print | \
+	while read fn; do 
+		head -n1 "${fn}" | grep -q "^#\!" && echo "${fn}" && chmod +x "${fn}" 
+	done
 }
 
 pkg_postinst() {
@@ -259,10 +259,10 @@ pkg_postinst() {
 	elog
 	elog "To complete the installation you must do the following:"
 	elog
-	elog "  1. Edit REPLICATION_TYPE in ${mb_root}/${PN}/lib/DBDefs.pm"
+	elog "  1. Edit REPLICATION_TYPE in ${mb_root}/lib/DBDefs.pm"
 	elog "  2. Make any other desired changes in DBDefs.pm"
 	elog "  3. Install Node.js dependencies:"
-	elog "     cd ${mb_root}/${PN}"
+	elog "     cd ${mb_root}"
 	elog "     npm install"
 	elog "     ./node_modules/.bin/gulp"
 	elog "     You may need to repeat these commands until they succeed."
@@ -273,7 +273,7 @@ pkg_postinst() {
 	elog "  https://github.com/metabrainz/musicbrainz-server/blob/master/INSTALL.md"
 	elog
 	elog "To update a slave hourly from the musicbrainz master, add this cron:"
-	elog "0 * * * * ${mb_root}/${PN}/admin/cron/slave.sh"
+	elog "0 * * * * ${mb_root}/admin/cron/slave.sh"
 	elog
 	elog "Please configure ${ROOT}etc/conf.d/${PN} before starting the server."
 	elog
