@@ -36,10 +36,8 @@ start() {
 	ebegin "Starting ${app}"
 	start-stop-daemon --start --pidfile ${pidfile} --user ${USER}:${GROUP} \
 	--exec ${program} -- \
-	--daemonize -I${lib_dir} --server ${SERVER} --env ${PLACK_ENV} \
-	--port ${PORT} --host ${HOST} \
-	${EXTRA_VARS} \
-	${psgi_file} -- \
+	--daemonize --app ${psgi_file} --path=${app_dir} -I${lib_dir} --reload \
+	${EXTRA_VARS} -- \
 	${EXTRA_BACKEND_VARS} \
 	>${log_dir}/${app}.log 2>&1
 
