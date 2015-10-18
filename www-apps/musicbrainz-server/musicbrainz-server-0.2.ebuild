@@ -43,34 +43,29 @@ MAKEFILE_MANDATORY="
 	dev-perl/Catalyst-Authentication-Credential-HTTP
 	dev-perl/Catalyst-Plugin-I18N
 	dev-perl/Catalyst-Plugin-Cache
-
 	dev-perl/Catalyst-Runtime
 	dev-perl/Catalyst-View-TT
 	perl-gcpan/CGI-Expand
-
 	dev-perl/Class-Load
 	dev-perl/Clone
-
 	dev-perl/Data-Compare
 	dev-perl/Data-Dumper-Concise
 	dev-perl/Data-OptList
 	dev-perl/Data-Page
-	dev-perl/Date-Calc
 	perl-gcpan/Data-UUID-MT
-	dev-perl/DateTime-TimeZone
-	dev-perl/DateTime-Format-Pg
-	dev-perl/DateTime-Format-Natural
+	dev-perl/Date-Calc
 	dev-perl/DateTime-Format-ISO8601
-	dev-perl/DBIx-Connector
+	dev-perl/DateTime-Format-Natural
+	dev-perl/DateTime-Format-Pg
+	dev-perl/DateTime-TimeZone
 	dev-perl/DBD-Pg
 	dev-perl/DBI
-
+	dev-perl/DBIx-Connector
 	dev-perl/Digest-HMAC
 	virtual/perl-Digest-MD5
 	virtual/perl-Digest-SHA
 	dev-perl/Email-Address
 	dev-perl/Email-MIME
-
 	dev-perl/Email-Sender
 	dev-perl/Email-Valid
 	dev-perl/Encode-Detect
@@ -88,8 +83,8 @@ MAKEFILE_MANDATORY="
 	dev-perl/List-AllUtils
 	dev-perl/List-MoreUtils
 	dev-perl/List-UtilsBy
-	dev-perl/LWP-Protocol-https
 	dev-perl/Log-Dispatch
+	dev-perl/LWP-Protocol-https
 	dev-perl/Math-Random-Secure
 	dev-perl/Method-Signatures-Simple
 	virtual/perl-MIME-Base64
@@ -107,9 +102,9 @@ MAKEFILE_MANDATORY="
 	dev-perl/MooseX-Types-URI
 	dev-perl/MRO-Compat
 	perl-gcpan/Net-Amazon-AWSSign
-	perl-gcpan/Unicode-ICU-Collator
 	perl-gcpan/Object-InsideOut
 	perl-gcpan/REST-Utils
+	perl-gcpan/RSS-Parser-Lite
 	dev-perl/Readonly
 	dev-perl/Redis
 	dev-perl/set-scalar
@@ -117,19 +112,17 @@ MAKEFILE_MANDATORY="
 	dev-perl/String-CamelCase
 	dev-perl/String-ShellQuote
 	perl-gcpan/String-TT
-
 	dev-perl/Template-Plugin-Class
 	dev-perl/Template-Plugin-JavaScript
 	perl-gcpan/Template-Plugin-JSON-Escape
 	dev-perl/Text-Markdown
-	>=dev-perl/Text-WikiFormat-0.810.0
-	dev-perl/Text-Unaccent
 	perl-gcpan/Text-Trim
+	dev-perl/Text-Unaccent
+	>=dev-perl/Text-WikiFormat-0.810.0
 	dev-perl/Throwable
 	dev-perl/URI
+	perl-gcpan/Unicode-ICU-Collator
 	dev-perl/XML-Parser-Lite
-
-	perl-gcpan/RSS-Parser-Lite
 	perl-gcpan/XML-SemanticDiff
 	dev-perl/XML-Simple
 	dev-perl/XML-XPath
@@ -141,9 +134,7 @@ MAKEFILE_ETAG_CACHING="
 
 # Cache::Memory is part of Cache
 MAKEFILE_DEFAULT_CACHING_SETUP="
-
 	dev-perl/Cache
-
 	dev-perl/Cache-Memcached-Fast
 "
 
@@ -153,17 +144,17 @@ MAKEFILE_DEFAULT_SESSION_STORE_STATE_MANAGEMENT="
 "
 
 MAKEFILE_DEVELOPER_FEATURES="
-	dev-perl/Catalyst-Plugin-StackTrace
 	dev-perl/Catalyst-Devel
+	dev-perl/Catalyst-Plugin-StackTrace
 	dev-perl/Plack
 	perl-gcpan/Plack-Middleware-Debug
 "
 
 MAKEFILE_PRODUCTION_SERVER="
-	dev-perl/Digest-MD5-File
 	>=dev-perl/Catalyst-Plugin-AutoRestart-0.960.0
 	dev-perl/Catalyst-Plugin-ErrorCatcher
 	dev-perl/Catalyst-Plugin-Session-Store-Memcached
+	dev-perl/Digest-MD5-File
 	dev-perl/FCGI
 	dev-perl/FCGI-ProcManager
 "
@@ -184,6 +175,7 @@ MAKEFILE_TEST="
 	perl-gcpan/HTML-HTML5-Sanity
 	dev-perl/HTML-Selector-XPath
 	perl-gcpan/LWP-UserAgent-Mockable
+	dev-perl/TAP-Parser-SourceHandler-pgTAP
 	dev-perl/Test-Aggregate
 	dev-perl/Test-Differences
 	dev-perl/Test-Fatal
@@ -196,7 +188,6 @@ MAKEFILE_TEST="
 	dev-perl/Test-WWW-Mechanize-Catalyst
 	perl-gcpan/Test-XPath
 	dev-perl/XML-Parser
-	dev-perl/TAP-Parser-SourceHandler-pgTAP
 "
 
 RDEPEND="
