@@ -5,7 +5,9 @@ run_dir="/run/${app}"
 pidfile="${run_dir}/${app}.pid"
 program="/usr/bin/plackup"
 log_dir="/var/log/${app}"
-lib_dir="/usr/share/${app}/lib"
+app_dir="/usr/share/${app}"
+psgi_file="${app_dir}/app.psgi"
+lib_dir="${app_dir}/lib"
 
 check_config() {
 	if [ ! -d "${run_dir}" ]; then
@@ -32,11 +34,12 @@ start() {
 	check_config
 
 	ebegin "Starting ${app}"
-	start-stop-daemon --start --pidfile ${pidfile} --user ${USER}:${GROUP}\
+	start-stop-daemon --start --pidfile ${pidfile} --user ${USER}:${GROUP} \
 	--exec ${program} -- \
 	--daemonize -I${lib_dir} --server ${SERVER} --env ${PLACK_ENV} \
 	--port ${PORT} --host ${HOST} \
-	${EXTRA_VARS} -- \
+	${EXTRA_VARS} \
+	${psgi_file} -- \
 	${EXTRA_BACKEND_VARS} \
 	>${log_dir}/${app}.log 2>&1
 
