@@ -223,7 +223,6 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 pkg_setup() {
-	# Move this later, somewhere near postinst
 	# Create musicbrainz group
 	enewgroup "${groups}"
 	# Create musicbrainz user, put in musicbrainz group
