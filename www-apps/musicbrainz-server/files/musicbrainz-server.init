@@ -34,12 +34,20 @@ start() {
 	check_config
 
 	ebegin "Starting ${app}"
-	start-stop-daemon --start -i -b -m \
-	--pidfile ${pid_file} --user ${USER} --group ${GROUP} \
-	--exec ${program} -- \
-	-r -I${lib_dir} --app ${psgi_file} \
-	${EXTRA_VARS} \
-	>${log_dir}/${app}.log 2>&1
+	start-stop-daemon \
+		--start \
+		--interpreted \
+		--background \
+		--make-pidfile \
+		--pidfile ${pid_file} \
+		--user ${USER} \
+		--group ${GROUP} \
+		--exec ${program} -- \
+		--reload \
+		-I${lib_dir} \
+		${psgi_file} \
+		${EXTRA_VARS} \
+		>${log_dir}/${app}.log 2>&1
 	eend $?
 }
 
