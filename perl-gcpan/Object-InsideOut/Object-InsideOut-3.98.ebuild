@@ -20,4 +20,5 @@ IUSE=""
 DEPEND=">=dev-perl/Want-0.260.0
 	>=perl-gcpan/Math-Random-MT-Auto-6.22
 	>=dev-perl/Exception-Class-1.390.0
+	dev-perl/Module-Build
 	dev-lang/perl"
