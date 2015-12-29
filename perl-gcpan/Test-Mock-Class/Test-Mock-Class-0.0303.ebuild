@@ -24,4 +24,5 @@ DEPEND="dev-perl/Class-Inspector
 	dev-perl/Exception-Base
 	>=dev-perl/Test-Unit-Lite-0.120.200
 	>=dev-perl/Test-Assert-0.50.400
+	dev-perl/Module-Build
 	dev-lang/perl"
