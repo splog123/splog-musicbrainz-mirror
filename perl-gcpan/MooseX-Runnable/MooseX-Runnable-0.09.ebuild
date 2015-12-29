@@ -19,4 +19,5 @@ IUSE=""
 
 DEPEND="
 	dev-perl/Module-Build
+	dev-perl/Module-Build-Tiny
 "
