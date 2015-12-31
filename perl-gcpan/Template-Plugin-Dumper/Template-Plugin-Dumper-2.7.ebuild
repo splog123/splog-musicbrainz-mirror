@@ -19,6 +19,6 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	dev-perl/Template-Plugin
+	dev-perl/Template-Toolkit
 	dev-lang/perl
 "
