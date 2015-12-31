@@ -113,9 +113,9 @@ MAKEFILE_MANDATORY="
 	dev-perl/String-ShellQuote
 	perl-gcpan/String-TT
 	dev-perl/Template-Plugin-Class
-	perl-gcpan/Template-Plugin-Dumper
 	dev-perl/Template-Plugin-JavaScript
 	perl-gcpan/Template-Plugin-JSON-Escape
+	dev-perl/Template-Toolkit
 	dev-perl/Text-Markdown
 	perl-gcpan/Text-Trim
 	dev-perl/Text-Unaccent
