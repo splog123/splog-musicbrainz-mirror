@@ -267,7 +267,7 @@ pkg_postinst() {
 	elog "  3. Install Node.js dependencies:"
 	elog "     cd ${mb_root}"
 	elog "     npm install"
-	elog "     ./node_modules/.bin/gulp"
+	elog "     ./script/compile_resources.sh"
 	elog "     You may need to repeat these commands until they succeed."
 	elog "  4. Set PostgreSQL access permissions"
 	elog "  5. Create a database and if required import data dumps"
