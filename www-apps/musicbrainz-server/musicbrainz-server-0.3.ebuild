@@ -199,11 +199,10 @@ RDEPEND="
 	dev-db/postgresql:9.1[server]
 	net-misc/memcached
 	dev-db/redis
-	net-libs/nodejs[npm,icu]
+	net-libs/nodejs[npm]
 
 	dev-libs/libxml2
 	dev-libs/expat
-	dev-libs/icu
 
 	${MAKEFILE_MANDATORY}
 	${MAKEFILE_ETAG_CACHING}
