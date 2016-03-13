@@ -126,6 +126,9 @@ MAKEFILE_MANDATORY="
 	>=perl-gcpan/XML-SemanticDiff-1.0000
 	>=dev-perl/XML-Simple-2.180
 	>=dev-perl/XML-XPath-1.130
+	
+	perl-gcpan/Object-InsideOut
+	perl-gcpan/Math-Random-MT-Auto
 "
 
 MAKEFILE_ETAG_CACHING="
