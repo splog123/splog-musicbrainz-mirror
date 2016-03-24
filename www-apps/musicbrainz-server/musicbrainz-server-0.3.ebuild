@@ -194,12 +194,19 @@ MAKEFILE_TEST="
 	dev-perl/TAP-Parser-SourceHandler-pgTAP
 "
 
+# Other packages not listed in Makefile.PL
+MAKEFILE_OTHER="
+	dev-perl/Mozilla-CA
+"
+
 RDEPEND="
 	>=dev-lang/perl-5.10.1
 	dev-db/postgresql:9.1[server]
 	net-misc/memcached
 	dev-db/redis
 	net-libs/nodejs[npm]
+	dev-perl/App-cpanminus
+	dev-perl/local-lib
 
 	dev-libs/libxml2
 	dev-libs/expat
@@ -213,6 +220,7 @@ RDEPEND="
 	${MAKEFILE_I18N}
 	${MAKEFILE_AUTHOR}
 	${MAKEFILE_TEST}
+	${MAKEFILE_OTHER}
 "
 
 DEPEND="${RDEPEND}"
@@ -247,7 +255,7 @@ src_install() {
 
 	cd "${S}"
 	insinto "${mb_root}"
-	doins -r *
+	doins -r .babelrc .eslintrc .perlcriticrc *
 
 	find "${D}/${mb_root}" -path ./blib -prune -o -path ./node_modules -prune -o -type f -print | \
 	while read fn; do 
