@@ -106,7 +106,7 @@ MAKEFILE_MANDATORY="
 	>=perl-gcpan/REST-Utils-0.6
 	>=dev-perl/Readonly-1.30
 	>=dev-perl/Redis-1.926
-	dev-perl/set-scalar
+	dev-perl/Set-Scalar
 	>=perl-gcpan/Statistics-Basic-1.6601
 	>=dev-perl/String-CamelCase-0.20
 	>=dev-perl/String-ShellQuote-1.30
